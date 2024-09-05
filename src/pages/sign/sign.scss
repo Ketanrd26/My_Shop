@@ -67,17 +67,17 @@
             padding: var(--unit);
           }
 
-          .admin {
-            width: 50%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-           gap: var(--unit);
-            input{
-              width: 20px;
-              aspect-ratio: 1;
-            }
-          }
+          // .admin {
+          //   width: 50%;
+          //   display: flex;
+          //   justify-content: flex-start;
+          //   align-items: center;
+          //  gap: var(--unit);
+          //   input{
+          //     width: 20px;
+          //     aspect-ratio: 1;
+          //   }
+          // }
 
           button {
             width: 50%;
@@ -87,6 +87,22 @@
             color: var(--white);
             border-radius: calc(var(--unit) / 2);
             cursor: pointer;
+          }
+
+          .password {
+            width: 50%;
+            position: relative;
+            input {
+              width: 100%;
+            }
+
+            .eye {
+              position: absolute;
+              top: 50%;
+              right: 0;
+              transform: translate(0%, -50%);
+              cursor: pointer;
+            }
           }
         }
 

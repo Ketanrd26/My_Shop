@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import "./sign.scss";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+import cartoon from "../../assest/cartoon face.png";
+import cartoonHide from "../../assest/cartoon hide face.png";
 const Sign = () => {
   const navgiation = useNavigate();
   const [signUpData, setSignUpData] = useState({
@@ -9,6 +13,8 @@ const Sign = () => {
     email: "",
     password: "",
   });
+
+  const [hidePass, setHidePass] = useState(false);
   const signUp = async (e) => {
     e.preventDefault();
     try {
@@ -42,6 +48,13 @@ const Sign = () => {
             <div className="left bg-img-contain"></div>
             <div className="right">
               <div className="top">
+                {hidePass ? (
+                  <img src={cartoon} alt="" />
+                ) : (
+                  <img src={cartoonHide} alt="" />
+                )}
+              </div>
+              <div className="top">
                 <h4>Create an account</h4>
                 <p>Enter your details below</p>
               </div>
@@ -68,19 +81,24 @@ const Sign = () => {
                     })
                   }
                 />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  value={signUpData.password}
-                  onChange={(e) =>
-                    setSignUpData({
-                      ...signUpData,
-                      password: e.target.value,
-                    })
-                  }
-                />
-          
-                
+                <div className="password">
+                  <input
+                    type={!hidePass ? "password" : "text"}
+                    placeholder="Password"
+                    value={signUpData.password}
+                    onChange={(e) =>
+                      setSignUpData({
+                        ...signUpData,
+                        password: e.target.value,
+                      })
+                    }
+                  />
+
+                  <span className="eye" onClick={() => setHidePass(!hidePass)}>
+                    {hidePass ? <FaEye /> : <FaEyeSlash />}
+                  </span>
+                </div>
+
                 <button type="submit">Create An Account</button>
               </form>
 

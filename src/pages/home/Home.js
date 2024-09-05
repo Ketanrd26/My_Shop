@@ -1,69 +1,100 @@
 import React, { useEffect, useState } from "react";
 import "./Home.scss";
 import axios from "axios";
+
 const Home = () => {
-  const [productData, setProductData] = useState([]);
-
-  const productList = async () => {
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_PORT_BACKEND}/product/productList`
-      );
-
-      setProductData(response.data.products);
-    } catch (error) {}
-  };
+  const targetDate = "30 sep 2024 12:00 AM";
+  const pastDate = new Date(targetDate);
+  
+  const [timeRemaining, setTimeRemaining] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
 
   useEffect(() => {
-    productList();
-  }, []);
+  
+    const updateCountdown = () => {
+      const newDate = new Date();
+      const difference = (pastDate - newDate) / 1000; 
+      
+    
+      const days = Math.floor(difference / (3600 * 24));
+      const hours = Math.floor((difference % (3600 * 24)) / 3600);
+      const minutes = Math.floor((difference % 3600) / 60);
+      const seconds = Math.floor(difference % 60);
 
-  const addCartItem = async (item) => {
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_PORT_BACKEND}/cart/addCart`,{
-          productId:item._id,
-          title:item.title,
-          img:item.img,
-          size:item.size,
-          color:item.color,
-          price:item.price,
-          desc:item.desc
-        },{
-          headers:{
-            "sessionobject": `${localStorage.getItem("sessionobject")}`
-          }
-        }
-      );
+      
+      setTimeRemaining({
+        days: days > 0 ? days : 0,
+        hours: hours > 0 ? hours : 0,
+        minutes: minutes > 0 ? minutes : 0,
+        seconds: seconds > 0 ? seconds : 0,
+      });
+    };
 
-      console.log("data", response)
-    } catch (error) {
-      console.log(error)
-    }
-  };
+    
+    const interval = setInterval(updateCountdown, 1000);
+
+ 
+    return () => clearInterval(interval);
+  }, [pastDate]);
 
   return (
     <>
-      <div className="homepage">
-        {productData.map((item, index) => (
-          <div className="card" key={index}>
-            <div
-              className="image"
-              style={{ backgroundImage: `url(${item.img})` }}
-            >
-              <h5> {item.title} </h5>
-            </div>
-            <div className="middle">
-              <div className="size">{item.size}</div>
-              <div className="color">{item.color}</div>
-              <div className="price">{item.price}</div>
-            </div>
-            <div className="bottom">
-              <p>{item.desc}</p>
-            </div>
-            <div className="btn" onClick={()=>addCartItem(item)}  >Add to Cart</div>
+      <div className="home-hero-parent parent">
+        <div className="home-hero-cont cont">
+          <div className="left">
+            <ul>
+              <li>Women's fashion</li>
+              <li>Men's fashion</li>
+              <li>Electronics</li>
+              <li>Home & Lifestyle</li>
+              <li>Medicine</li>
+              <li>Sports & Outdoor</li>
+              <li>Health & Beauty</li>
+            </ul>
           </div>
-        ))}
+          <div className="right">
+            <div className="slider bg-img-contain">
+              <div className="left-slider">
+                <p>iPhone 14 Series</p>
+                <h3>
+                  Up to 10% <br />
+                  off Voucher
+                </h3>
+              </div>
+              <div className="right bg-img-contain"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="product-parent parent">
+        <div className="product-cont cont">
+          <h3>Today's</h3>
+          <div className="list">
+            <h4>Flash Sales</h4>
+            <div className="countdown">
+              <div className="days">
+                <p>Days</p>
+                <h5>{timeRemaining.days}</h5>
+              </div>
+              <div className="Hours">
+                <p>Hours</p>
+                <h5>{timeRemaining.hours}</h5>
+              </div>
+              <div className="minutes">
+                <p>Minutes</p>
+                <h5>{timeRemaining.minutes}</h5>
+              </div>
+              <div className="seconds">
+                <p>Seconds</p>
+                <h5>{timeRemaining.seconds}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

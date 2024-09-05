@@ -1,14 +1,16 @@
 import React, { useContext } from "react";
 import "./header.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // icons
 
 import { FaHeart } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import { IoMdPerson } from "react-icons/io";
-import  { UserContext } from "../../context";
+import { UserContext } from "../../context";
 const Header = () => {
   const { userData } = useContext(UserContext);
+  const { setUserData } = useContext(UserContext);
+  const navigate = useNavigate();
   const navs = [
     {
       path: "home",
@@ -27,7 +29,18 @@ const Header = () => {
       href: "/signup",
     },
   ];
-  
+
+  const logoutUser = () => {
+    localStorage.removeItem("sessionobject");
+    setUserData("");
+    navigate("/");
+
+    // const logoutClass = document.getElementsByClassName("logout");
+
+    // if (logoutClass) {
+    //   logoutClass.style.display = "none";
+    // }
+  };
 
   return (
     <>
@@ -55,6 +68,10 @@ const Header = () => {
                 <IoMdPerson />
               </span> */}
               <h4>{userData}</h4>
+
+              <div className="logout" onClick={() => logoutUser()}>
+                <p>Logout</p>
+              </div>
             </div>
           </div>
         </div>

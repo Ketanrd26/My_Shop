@@ -3,10 +3,14 @@ import "./login.scss";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../../context";
-
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+import cartoon from "../../assest/cartoon face.png";
+import cartoonHide from "../../assest/cartoon hide face.png";
 const Login = () => {
   const navigate = useNavigate();
 
+  const [hidePass, setHidePass] = useState(false);
   const { setUserData } = useContext(UserContext);
   const [loginDetails, setLoginDetails] = useState({
     username: "",
@@ -49,6 +53,13 @@ const Login = () => {
           <div className="signup-cont">
             <div className="left bg-img-contain"></div>
             <div className="right">
+            <div className="top">
+                {hidePass ? (
+                  <img src={cartoon} alt="" />
+                ) : (
+                  <img src={cartoonHide} alt="" />
+                )}
+              </div>
               <div className="top">
                 <h4>Log in to Exclusive</h4>
                 <p>Enter your details below</p>
@@ -66,17 +77,23 @@ const Login = () => {
                   }
                 />
 
-                <input
-                  type="password"
-                  placeholder="Password"
-                  value={loginDetails.password}
-                  onChange={(e) =>
-                    setLoginDetails({
-                      ...loginDetails,
-                      password: e.target.value,
-                    })
-                  }
-                />
+<div className="password">
+                  <input
+                    type={!hidePass ? "password" : "text"}
+                    placeholder="Password"
+                    value={loginDetails.password}
+                    onChange={(e) =>
+                      setLoginDetails({
+                        ...loginDetails,
+                        password: e.target.value,
+                      })
+                    }
+                  />
+
+                  <span className="eye" onClick={() => setHidePass(!hidePass)}>
+                    {hidePass ? <FaEye /> : <FaEyeSlash />}
+                  </span>
+                </div>
 
                 <div className="bottom">
                   <button type="submit">Log in</button>
