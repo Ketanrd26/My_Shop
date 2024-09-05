@@ -1,108 +1,69 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Home.scss";
 import axios from "axios";
 const Home = () => {
-  const [product, setProduct] = useState({
-    title: "",
-    desc: "",
-    img: null,
-    categories: "",
-    size: "",
-    color: "",
-    price: "",
-  });
+  const [productData, setProductData] = useState([]);
 
-  const addProduct = async (e) => {
-    e.preventDefault()
+  const productList = async () => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_PORT_BACKEND}/product/addProduct`,
-        {
-          ...product,
-            headers:{
-              "sessionobject" : localStorage.getItem("sessionobject")
-            }
-          
+      const response = await axios.post(
+        `${process.env.REACT_APP_PORT_BACKEND}/product/productList`
+      );
+
+      setProductData(response.data.products);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    productList();
+  }, []);
+
+  const addCartItem = async (item) => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_PORT_BACKEND}/cart/addCart`,{
+          productId:item._id,
+          title:item.title,
+          img:item.img,
+          size:item.size,
+          color:item.color,
+          price:item.price,
+          desc:item.desc
+        },{
+          headers:{
+            "sessionobject": `${localStorage.getItem("sessionobject")}`
+          }
         }
       );
-      console.log(response, "respoonse");
+
+      console.log("data", response)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   };
 
-  console.log(product)
   return (
     <>
       <div className="homepage">
-        <form action=""   onSubmit={addProduct}>
-          <input
-            type="text"
-            placeholder="title"
-            value={product.title}
-            onChange={(e) =>
-              setProduct({
-                ...product,
-                title: e.target.value,
-              })
-            }
-          />
-          <input type="text" placeholder="desc"  
-           value={product.desc}
-           onChange={(e) =>
-             setProduct({
-               ...product,
-               desc: e.target.value,
-             })
-           }
-          />
-          <input type="file" placeholder="image" 
-          //  value={product.img}
-           onChange={(e) =>
-             setProduct({
-               ...product,
-               img: e.target.files[0],
-             })
-           }
-          />
-          <input type="text" placeholder="categories" 
-           value={product.categories}
-           onChange={(e) =>
-             setProduct({
-               ...product,
-               categories: e.target.value,
-             })
-           }
-          />
-          <input type="text" placeholder="size" 
-           value={product.size}
-           onChange={(e) =>
-             setProduct({
-               ...product,
-               size: e.target.value,
-             })
-           }
-          />
-          <input type="text" placeholder="color" 
-           value={product.color}
-           onChange={(e) =>
-             setProduct({
-               ...product,
-               color: e.target.value,
-             })
-           }
-          />
-          <input type="text" placeholder="price" 
-           value={product.price}
-           onChange={(e) =>
-             setProduct({
-               ...product,
-               price: e.target.value,
-             })
-           }
-          />
-          <input type="submit" />
-        </form>
+        {productData.map((item, index) => (
+          <div className="card" key={index}>
+            <div
+              className="image"
+              style={{ backgroundImage: `url(${item.img})` }}
+            >
+              <h5> {item.title} </h5>
+            </div>
+            <div className="middle">
+              <div className="size">{item.size}</div>
+              <div className="color">{item.color}</div>
+              <div className="price">{item.price}</div>
+            </div>
+            <div className="bottom">
+              <p>{item.desc}</p>
+            </div>
+            <div className="btn" onClick={()=>addCartItem(item)}  >Add to Cart</div>
+          </div>
+        ))}
       </div>
     </>
   );
