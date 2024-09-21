@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Home.scss";
 import axios from "axios";
+import { Swiper, SwiperSlide } from 'swiper/react';
 
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 const Home = () => {
   const targetDate = "30 sep 2024 12:00 AM";
   const pastDate = new Date(targetDate);
@@ -79,21 +84,37 @@ const Home = () => {
               <div className="days">
                 <p>Days</p>
                 <h5>{timeRemaining.days}</h5>
+                
               </div>
+             <span className="dots">
+             :
+             </span>
               <div className="Hours">
                 <p>Hours</p>
                 <h5>{timeRemaining.hours}</h5>
+                
               </div>
+               <span className="dots">
+             :
+             </span>
               <div className="minutes">
                 <p>Minutes</p>
                 <h5>{timeRemaining.minutes}</h5>
+               
               </div>
+               <span className="dots">
+             :
+             </span>
               <div className="seconds">
                 <p>Seconds</p>
                 <h5>{timeRemaining.seconds}</h5>
+               
               </div>
             </div>
           </div>
+        </div>
+        <div className="product-list">
+             <div className="card"></div>
         </div>
       </div>
     </>
