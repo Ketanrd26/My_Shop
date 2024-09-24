@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./Home.scss";
 import axios from "axios";
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 const Home = () => {
   const targetDate = "30 sep 2024 12:00 AM";
   const pastDate = new Date(targetDate);
-  
+
   const [timeRemaining, setTimeRemaining] = useState({
     days: 0,
     hours: 0,
@@ -19,18 +19,15 @@ const Home = () => {
   });
 
   useEffect(() => {
-  
     const updateCountdown = () => {
       const newDate = new Date();
-      const difference = (pastDate - newDate) / 1000; 
-      
-    
+      const difference = (pastDate - newDate) / 1000;
+
       const days = Math.floor(difference / (3600 * 24));
       const hours = Math.floor((difference % (3600 * 24)) / 3600);
       const minutes = Math.floor((difference % 3600) / 60);
       const seconds = Math.floor(difference % 60);
 
-      
       setTimeRemaining({
         days: days > 0 ? days : 0,
         hours: hours > 0 ? hours : 0,
@@ -39,10 +36,8 @@ const Home = () => {
       });
     };
 
-    
     const interval = setInterval(updateCountdown, 1000);
 
- 
     return () => clearInterval(interval);
   }, [pastDate]);
 
@@ -84,37 +79,121 @@ const Home = () => {
               <div className="days">
                 <p>Days</p>
                 <h5>{timeRemaining.days}</h5>
-                
               </div>
-             <span className="dots">
-             :
-             </span>
+              <span className="dots">:</span>
               <div className="Hours">
                 <p>Hours</p>
                 <h5>{timeRemaining.hours}</h5>
-                
               </div>
-               <span className="dots">
-             :
-             </span>
+              <span className="dots">:</span>
               <div className="minutes">
                 <p>Minutes</p>
                 <h5>{timeRemaining.minutes}</h5>
-               
               </div>
-               <span className="dots">
-             :
-             </span>
+              <span className="dots">:</span>
               <div className="seconds">
                 <p>Seconds</p>
                 <h5>{timeRemaining.seconds}</h5>
-               
               </div>
             </div>
           </div>
         </div>
         <div className="product-list">
-             <div className="card"></div>
+          <div className="card">
+            <div className="image">
+              <div className="addtocart">
+                <h3>
+                  Add to Cart
+                </h3>
+              </div>
+            </div>
+            <div className="title">lorem lipsum</div>
+            <div className="desc">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque,
+                ullam!
+              </p>
+            </div>
+            <div className="amount">
+              <h4>$ 20.00</h4>
+            </div>
+          </div>
+          <div className="card">
+            <div className="image">
+              <div className="addtocart">
+                <h3>
+                  Add to Cart
+                </h3>
+              </div>
+            </div>
+            <div className="title">lorem lipsum</div>
+            <div className="desc">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque,
+                ullam!
+              </p>
+            </div>
+            <div className="amount">
+              <h4>$ 20.00</h4>
+            </div>
+          </div>
+          <div className="card">
+            <div className="image">
+              <div className="addtocart">
+                <h3>
+                  Add to Cart
+                </h3>
+              </div>
+            </div>
+            <div className="title">lorem lipsum</div>
+            <div className="desc">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque,
+                ullam!
+              </p>
+            </div>
+            <div className="amount">
+              <h4>$ 20.00</h4>
+            </div>
+          </div>
+          <div className="card">
+            <div className="image">
+              <div className="addtocart">
+                <h3>
+                  Add to Cart
+                </h3>
+              </div>
+            </div>
+            <div className="title">lorem lipsum</div>
+            <div className="desc">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque,
+                ullam!
+              </p>
+            </div>
+            <div className="amount">
+              <h4>$ 20.00</h4>
+            </div>
+          </div>
+          <div className="card">
+            <div className="image">
+              <div className="addtocart">
+                <h3>
+                  Add to Cart
+                </h3>
+              </div>
+            </div>
+            <div className="title">lorem lipsum</div>
+            <div className="desc">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque,
+                ullam!
+              </p>
+            </div>
+            <div className="amount">
+              <h4>$ 20.00</h4>
+            </div>
+          </div>
         </div>
       </div>
     </>

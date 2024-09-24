@@ -7,6 +7,7 @@ import Sign from "./pages/sign/Sign";
 import Login from "./pages/login/Login";
 import ContextProvider from "./context";
 import Admin from "./pages/admin/Admin";
+import Cart from "./pages/cart/Cart";
 function App() {
   return (
     <div className="App">
@@ -19,6 +20,7 @@ function App() {
           <Route path="/signup" element={<Sign />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </BrowserRouter>
       
