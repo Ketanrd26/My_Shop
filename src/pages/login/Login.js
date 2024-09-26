@@ -43,9 +43,6 @@ const Login = () => {
       console.log(error, "error");
     }
   };
-  console.log(loginDetails);
-
-  console.log(process.env.REACT_APP_PORT_BACKEND);
   return (
     <div>
       <div className="signup">

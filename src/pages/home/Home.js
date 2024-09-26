@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Home.scss";
 import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -7,7 +7,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { UserContext } from "../../context";
 const Home = () => {
+  const { userData } = useContext(UserContext);
   const targetDate = "30 sep 2024 12:00 AM";
   const pastDate = new Date(targetDate);
 
@@ -40,6 +42,12 @@ const Home = () => {
 
     return () => clearInterval(interval);
   }, [pastDate]);
+
+  const reportCartWIthoutLogin = () => {
+    if (!userData) {
+      alert("please login first ");
+    }
+  };
 
   return (
     <>
@@ -101,10 +109,8 @@ const Home = () => {
         <div className="product-list">
           <div className="card">
             <div className="image">
-              <div className="addtocart">
-                <h3>
-                  Add to Cart
-                </h3>
+              <div className="addtocart" onClick={reportCartWIthoutLogin} >
+                <h3>Add to Cart</h3>
               </div>
             </div>
             <div className="title">lorem lipsum</div>
@@ -121,9 +127,7 @@ const Home = () => {
           <div className="card">
             <div className="image">
               <div className="addtocart">
-                <h3>
-                  Add to Cart
-                </h3>
+                <h3>Add to Cart</h3>
               </div>
             </div>
             <div className="title">lorem lipsum</div>
@@ -140,9 +144,7 @@ const Home = () => {
           <div className="card">
             <div className="image">
               <div className="addtocart">
-                <h3>
-                  Add to Cart
-                </h3>
+                <h3>Add to Cart</h3>
               </div>
             </div>
             <div className="title">lorem lipsum</div>
@@ -159,9 +161,7 @@ const Home = () => {
           <div className="card">
             <div className="image">
               <div className="addtocart">
-                <h3>
-                  Add to Cart
-                </h3>
+                <h3>Add to Cart</h3>
               </div>
             </div>
             <div className="title">lorem lipsum</div>
@@ -178,9 +178,7 @@ const Home = () => {
           <div className="card">
             <div className="image">
               <div className="addtocart">
-                <h3>
-                  Add to Cart
-                </h3>
+                <h3>Add to Cart</h3>
               </div>
             </div>
             <div className="title">lorem lipsum</div>

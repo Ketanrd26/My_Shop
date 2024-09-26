@@ -51,6 +51,8 @@
       .like,
       .cart {
         font-size: calc(var(--unit) * 2);
+        cursor: pointer;
+        color: var(--black);
       }
 
       .profile {

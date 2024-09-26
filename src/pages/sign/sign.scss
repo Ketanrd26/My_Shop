@@ -58,13 +58,29 @@
           justify-content: center;
           align-items: flex-start;
           gap: var(--unit);
-          input {
+   
+          .input-box{
+            position: relative;
             width: 50%;
-            background-color: transparent;
-            border: none;
-            border-bottom: 1px solid var(--text);
-            outline: none;
-            padding: var(--unit);
+            input {
+             width: 100%;
+              background-color: transparent;
+              border: none;
+              border-bottom: 1px solid var(--text);
+              outline: none;
+              padding: var(--unit);
+            }
+
+            &::after{
+              position: absolute;
+              content: "";
+              bottom: 0;
+              left: 0;
+              width: 0;
+              height: 1px;
+              background-color: red;
+              
+            }
           }
 
           // .admin {

@@ -59,7 +59,8 @@ const Sign = () => {
                 <p>Enter your details below</p>
               </div>
               <form action="" onSubmit={signUp}>
-                <input
+               <div className="input-box">
+               <input
                   type="text"
                   placeholder="username"
                   value={signUpData.username}
@@ -69,7 +70,10 @@ const Sign = () => {
                       username: e.target.value,
                     })
                   }
+
+                  
                 />
+               </div>
                 <input
                   type="email"
                   placeholder="Email"

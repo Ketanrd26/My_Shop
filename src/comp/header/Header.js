@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { FaHeart } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
-import { IoMdPerson } from "react-icons/io";
+// import { IoMdPerson } from "react-icons/io";
 import { UserContext } from "../../context";
 const Header = () => {
   const { userData } = useContext(UserContext);
@@ -42,6 +42,16 @@ const Header = () => {
     // }
   };
 
+  const goToCart = () => {
+    if (!userData) {
+      alert("Please login first to access the cart");
+    } 
+      else{
+        navigate("/cart");
+      }
+    
+  };
+
   return (
     <>
       <div className="header-parent parent">
@@ -60,7 +70,7 @@ const Header = () => {
             <div className="like">
               <FaHeart />
             </div>
-            <div className="cart">
+            <div className="cart" onClick={goToCart}>
               <FaShoppingCart />
             </div>
             <div className="profile">
