@@ -48,7 +48,23 @@ const Home = () => {
       alert("please login first ");
     }
   };
+  const [productmapping, setProductMapping] = useState([]);
+  const addProductItems = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_PORT_BACKEND}/product/productList`
+      );
 
+      console.log(response.data.products);
+      setProductMapping(response.data.products);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    addProductItems();
+  }, []);
   return (
     <>
       <div className="home-hero-parent parent">
@@ -107,91 +123,25 @@ const Home = () => {
           </div>
         </div>
         <div className="product-list">
-          <div className="card">
-            <div className="image">
-              <div className="addtocart" onClick={reportCartWIthoutLogin} >
-                <h3>Add to Cart</h3>
+          {productmapping.map((item, index) => (
+            <div className="card" key={index}>
+              <div
+                className="image bg-img-cover"
+                style={{ backgroundImage: `url(${process.env.REACT_APP_PORT_BACKEND}/productImages/${item.img})` }}
+              >
+                <div className="addtocart"  onClick={reportCartWIthoutLogin} >
+                  <h3>Add to Cart</h3>
+                </div>
+              </div>
+              <div className="title">{item.title}</div>
+              <div className="desc">
+                <p>{item.desc}</p>
+              </div>
+              <div className="amount">
+                <h4>$ {item.price}</h4>
               </div>
             </div>
-            <div className="title">lorem lipsum</div>
-            <div className="desc">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque,
-                ullam!
-              </p>
-            </div>
-            <div className="amount">
-              <h4>$ 20.00</h4>
-            </div>
-          </div>
-          <div className="card">
-            <div className="image">
-              <div className="addtocart">
-                <h3>Add to Cart</h3>
-              </div>
-            </div>
-            <div className="title">lorem lipsum</div>
-            <div className="desc">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque,
-                ullam!
-              </p>
-            </div>
-            <div className="amount">
-              <h4>$ 20.00</h4>
-            </div>
-          </div>
-          <div className="card">
-            <div className="image">
-              <div className="addtocart">
-                <h3>Add to Cart</h3>
-              </div>
-            </div>
-            <div className="title">lorem lipsum</div>
-            <div className="desc">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque,
-                ullam!
-              </p>
-            </div>
-            <div className="amount">
-              <h4>$ 20.00</h4>
-            </div>
-          </div>
-          <div className="card">
-            <div className="image">
-              <div className="addtocart">
-                <h3>Add to Cart</h3>
-              </div>
-            </div>
-            <div className="title">lorem lipsum</div>
-            <div className="desc">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque,
-                ullam!
-              </p>
-            </div>
-            <div className="amount">
-              <h4>$ 20.00</h4>
-            </div>
-          </div>
-          <div className="card">
-            <div className="image">
-              <div className="addtocart">
-                <h3>Add to Cart</h3>
-              </div>
-            </div>
-            <div className="title">lorem lipsum</div>
-            <div className="desc">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque,
-                ullam!
-              </p>
-            </div>
-            <div className="amount">
-              <h4>$ 20.00</h4>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </>

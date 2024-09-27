@@ -134,7 +134,8 @@
   .product-list {
     width: 100%;
     height: auto;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4,auto);
     justify-content: center;
     align-items: center;
     gap: var(--unit);
@@ -179,6 +180,7 @@
       }
 
       .desc {
+        height: 10%;
         p {
           font-size: 12px;
           line-height: 120%;
