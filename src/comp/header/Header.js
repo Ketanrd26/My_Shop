@@ -10,6 +10,7 @@ import { UserContext } from "../../context";
 const Header = () => {
   const { userData } = useContext(UserContext);
   const { setUserData } = useContext(UserContext);
+
   const navigate = useNavigate();
   const navs = [
     {
@@ -77,7 +78,8 @@ const Header = () => {
               {/* <span>
                 <IoMdPerson />
               </span> */}
-              <h4>{userData}</h4>
+              {/* <h4>{user}</h4> */}
+              <h4>{userData && userData.username}</h4>
 
               <div className="logout" onClick={() => logoutUser()}>
                 <p>Logout</p>

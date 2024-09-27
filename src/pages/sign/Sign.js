@@ -73,6 +73,8 @@ const Sign = () => {
 
                   
                 />
+
+                <span className="border-effect"></span>
                </div>
                 <input
                   type="email"

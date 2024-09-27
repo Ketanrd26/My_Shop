@@ -43,19 +43,13 @@ const Home = () => {
     return () => clearInterval(interval);
   }, [pastDate]);
 
-  const reportCartWIthoutLogin = () => {
-    if (!userData) {
-      alert("please login first ");
-    }
-  };
+
   const [productmapping, setProductMapping] = useState([]);
   const addProductItems = async () => {
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_PORT_BACKEND}/product/productList`
       );
-
-      console.log(response.data.products);
       setProductMapping(response.data.products);
     } catch (error) {
       console.log(error);
@@ -65,6 +59,39 @@ const Home = () => {
   useEffect(() => {
     addProductItems();
   }, []);
+
+
+
+  const userId = userData && userData._id;
+
+
+const token = localStorage.getItem("sessionobject");
+
+const addToCart = async (id) => {
+  try {
+    const response = await axios.post(
+      `${process.env.REACT_APP_PORT_BACKEND}/cart/addCart`,
+      {
+        userId: userId,
+        products: [
+          {
+            productId: id,
+          },
+        ],
+      },
+      {
+        headers: {
+          sessionobject: `${token}`, // Pass token as Authorization header
+        },
+      }
+    );
+
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
   return (
     <>
       <div className="home-hero-parent parent">
@@ -127,9 +154,11 @@ const Home = () => {
             <div className="card" key={index}>
               <div
                 className="image bg-img-cover"
-                style={{ backgroundImage: `url(${process.env.REACT_APP_PORT_BACKEND}/productImages/${item.img})` }}
+                style={{
+                  backgroundImage: `url(${process.env.REACT_APP_PORT_BACKEND}/productImages/${item.img})`,
+                }}
               >
-                <div className="addtocart"  onClick={reportCartWIthoutLogin} >
+                <div className="addtocart" onClick={()=>addToCart(item._id)}>
                   <h3>Add to Cart</h3>
                 </div>
               </div>

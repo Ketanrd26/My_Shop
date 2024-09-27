@@ -32,7 +32,7 @@ const Login = () => {
           username: "",
           password: "",
         });
-        setUserData(response.data.user.username);
+        setUserData(response.data.user);
         const accessToken = response.data.accessToken;
         localStorage.setItem("sessionobject", `Bearer ${accessToken}`);
 
