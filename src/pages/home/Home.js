@@ -10,7 +10,7 @@ import "swiper/css/navigation";
 import { UserContext } from "../../context";
 const Home = () => {
   const { userData } = useContext(UserContext);
-  const targetDate = "30 sep 2024 12:00 AM";
+  const targetDate = "30 oct 2024 12:00 AM";
   const pastDate = new Date(targetDate);
 
   const [timeRemaining, setTimeRemaining] = useState({
@@ -47,7 +47,7 @@ const Home = () => {
   const [productmapping, setProductMapping] = useState([]);
   const addProductItems = async () => {
     try {
-      const response = await axios.post(
+      const response = await axios.get(
         `${process.env.REACT_APP_PORT_BACKEND}/product/productList`
       );
       setProductMapping(response.data.products);

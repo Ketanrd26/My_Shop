@@ -44,7 +44,7 @@
       align-items: center;
       gap: var(--unit);
 
-      h4{
+      h4 {
         font-size: 14px;
         text-transform: capitalize;
       }
@@ -53,32 +53,47 @@
         font-size: calc(var(--unit) * 2);
         cursor: pointer;
         color: var(--black);
+        position: relative;
+        .cartCount {
+          position: absolute;
+          font-size: calc(var(--unit) );
+          top: -30%;
+          right: -40%;
+          color: var(--white);
+          background-color: var(--red);
+         height: 20px;
+          aspect-ratio: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
+          font-weight: 500;
+        }
       }
 
       .profile {
         font-size: calc(var(--unit) * 2);
         position: relative;
-cursor: pointer;
-        &:hover{
-
-          .logout{
-            display: flex
+        cursor: pointer;
+        &:hover {
+          .logout {
+            display: flex;
           }
         }
 
-        .logout{
+        .logout {
           position: absolute;
           background-color: var(--white);
           box-shadow: var(--shadow);
           padding: var(--unit);
-  transition: var(--trans);
+          transition: var(--trans);
           justify-content: center;
           align-items: center;
           width: 100%;
           left: 0;
           top: 100%;
           cursor: pointer;
-          border-radius: calc(var(--unit)/2);
+          border-radius: calc(var(--unit) / 2);
           display: none;
         }
       }
