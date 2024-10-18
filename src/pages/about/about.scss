@@ -1,0 +1,225 @@
+.about-parent {
+  height: auto;
+  width: 100%;
+  padding-top: 80px;
+
+  .about-cont {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: calc(var(--unit) * 4);
+    padding: 50px 10px;
+    flex-direction: row-reverse;
+
+    .right {
+      width: 50%;
+      height: auto;
+      background-image: url("../../assest/about-hero.png");
+      border-radius: calc(var(--unit) / 2);
+    }
+
+    .left {
+      width: 50%;
+      padding: 20px 0px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: var(--unit);
+
+      .out-story-heading {
+        font-size: calc(var(--unit) * 3);
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.counters-parent {
+  width: 100%;
+  height: auto;
+  padding: 30px 0px;
+
+  .counter-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: calc(var(--unit) * 2);
+
+    .card {
+      padding: var(--unit);
+      width: calc(100% / 4);
+      aspect-ratio: 1;
+      border: 1px solid var(--text);
+      border-radius: calc(var(--unit) / 2);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: var(--trans);
+
+      .icon {
+        width: 50px;
+        aspect-ratio: 1;
+        position: relative;
+
+        .iconimg {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          z-index: 2;
+          transform: translate(-50%, -50%) scale(0.7);
+          transition: var(--trans);
+
+          &.blackicon {
+            display: none;
+          }
+        }
+        &::before {
+          position: absolute;
+          content: "";
+          top: 0;
+          aspect-ratio: 1;
+          width: 100%;
+          left: 0;
+          background-color: var(--black);
+          border-radius: 50%;
+          transform: scale(0.8);
+          z-index: 1;
+          transition: var(--trans);
+        }
+        &::after {
+          position: absolute;
+          content: "";
+          top: 0;
+          aspect-ratio: 1;
+          width: 100%;
+          left: 0;
+          background-color: var(--text);
+          border-radius: 50%;
+          z-index: 0;
+          transition: var(--trans);
+        }
+      }
+
+      h3 {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: calc(var(--unit) * 5);
+        font-weight: 600;
+        transition: var(--trans);
+        .count {
+          width: fit-content;
+          aspect-ratio: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+
+      p {
+        color: var(--black);
+        text-transform: capitalize;
+        transition: var(--trans);
+        max-width: 30ch;
+        text-align: center;
+        font-size: var(--unit);
+      }
+
+      &:hover {
+        background-color: var(--red);
+        border: 1px solid var(--red);
+        .icon {
+          .whiteicon {
+            display: none;
+          }
+
+          .blackicon {
+            display: flex !important;
+          }
+          &::before {
+            background-color: var(--white) !important;
+          }
+          &::after {
+            opacity: 0.8;
+          }
+        }
+
+        h3,
+        p {
+          color: var(--white);
+        }
+      }
+    }
+  }
+}
+
+.founders-parent {
+  width: 100%;
+  height: auto;
+  padding: 30px 0px;
+  .founder-cont {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: calc(var(--unit)*2);
+
+    .founder {
+      width: calc(100% / 3);
+      aspect-ratio: 0.8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+
+      .founder-img {
+        width: 100%;
+        height: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img{
+          transition: var(--trans);
+          filter: grayscale(1);
+        }
+      }
+
+      .content {
+        width: 100%;
+        height: 20%;
+        background-color: var(--black);
+        padding: 10px;
+
+
+        h3 {
+          width: 100%;
+          text-align: left;
+          color: var(--white);
+        }
+        font-size: calc(var(--unit)*2.5);
+        p {
+          width: 100%;
+          text-align: left;
+          color: var(--white);
+        }
+      }
+
+      &:hover{
+        .founder-img{
+          img{
+            filter: grayscale(0);
+          }
+        }
+      }
+    }
+  }
+}
+
+

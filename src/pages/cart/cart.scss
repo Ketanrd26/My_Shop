@@ -1,16 +1,21 @@
 .cart-parent {
   width: 100%;
   height: auto;
-  padding-top: 80px;
+
+  padding-top: 100px;
 
   .cart-cont {
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
     align-items: center;
-    padding: 50px 10px var(--unit) 10px;
+    padding: 30px 10px var(--unit) 10px;
 
+    height: 500px;
+    overflow-y: scroll;
+    background-color: white;
+    box-shadow: var(--shadow);
     gap: var(--unit);
 
     .menu {
@@ -21,24 +26,23 @@
       background-color: var(--white);
       box-shadow: var(--shadow);
       padding: var(--unit) 0px;
-   
+
       &.items {
         padding: calc(var(--unit) / 2) 10px;
       }
 
       p {
         color: var(--black);
-        width: calc(var(--max-width)/5);
+        width: calc(var(--max-width) / 5);
         text-align: center;
       }
 
       .fullamount,
       .price {
-        width: calc(var(--max-width)/5);
+        width: calc(var(--max-width) / 5);
         display: flex;
         justify-content: center;
         align-items: center;
-
       }
 
       .fristcol {
@@ -46,7 +50,7 @@
         justify-content: flex-start;
         align-items: center;
         gap: var(--unit);
-        width: calc(var(--max-width)/5);
+        width: calc(var(--max-width) / 5);
 
         img {
           height: 100px;
@@ -58,8 +62,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width: calc(var(--max-width)/5);
-
+        width: calc(var(--max-width) / 5);
 
         .input {
           width: 100px;
@@ -103,4 +106,45 @@
       }
     }
   }
+
+  .bottom-cont {
+    height: 100%;
+padding: 50px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-self: start;
+
+    .right {
+      width: 300px;
+      aspect-ratio: 1;
+      border: 1px solid var(--black);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+gap: calc(var(--unit)*2);
+      padding: var(--unit);
+
+      h5{
+        font-size: calc(var(--unit)*2);
+        width: 100%;
+        text-align: left;
+      }
+
+      .subtotal{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        // padding: calc(var(--unit)/2);
+        border-bottom: 1px solid var(--black);
+
+        &:nth-last-child(1){
+border: none !important;
+        }
+
+ 
+    }
+  }
+}
 }

@@ -25,7 +25,7 @@ const Header = () => {
     },
     {
       path: "about",
-      href: "/",
+      href: "/about",
     },
     {
       path: "Sign Up",

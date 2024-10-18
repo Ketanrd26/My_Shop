@@ -8,6 +8,8 @@ import Login from "./pages/login/Login";
 import ContextProvider from "./context";
 import Admin from "./pages/admin/Admin";
 import Cart from "./pages/cart/Cart";
+import About from "./pages/about/About";
+
 function App() {
   return (
     <div className="App">
@@ -17,6 +19,7 @@ function App() {
       <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
           <Route path="/signup" element={<Sign />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<Admin />} />

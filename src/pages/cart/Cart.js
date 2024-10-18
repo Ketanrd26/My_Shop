@@ -50,7 +50,7 @@ const Cart = () => {
         .filter((item) => productId.hasOwnProperty(item._id))
         .map((item) => ({
           ...item,
-          quantity: productId[item._id], 
+          quantity: productId[item._id],
         }));
 
       setFilterProduct(filteredProducts);
@@ -59,28 +59,27 @@ const Cart = () => {
     }
   };
 
+  // Handle increasing the quantity
+  const increaseQuantity = (id) => {
+    setFilterProduct((prevState) =>
+      prevState.map((product) =>
+        product._id === id
+          ? { ...product, quantity: product.quantity + 1 }
+          : product
+      )
+    );
+  };
 
-    // Handle increasing the quantity
-    const increaseQuantity = (id) => {
-      setFilterProduct((prevState) =>
-        prevState.map((product) =>
-          product._id === id
-            ? { ...product, quantity: product.quantity + 1 }
-            : product
-        )
-      );
-    };
-  
-    // Handle decreasing the quantity, ensuring it doesn't go below 1
-    const decreaseQuantity = (id) => {
-      setFilterProduct((prevState) =>
-        prevState.map((product) =>
-          product._id === id && product.quantity > 1
-            ? { ...product, quantity: product.quantity - 1 }
-            : product
-        )
-      );
-    };
+  // Handle decreasing the quantity, ensuring it doesn't go below 1
+  const decreaseQuantity = (id) => {
+    setFilterProduct((prevState) =>
+      prevState.map((product) =>
+        product._id === id && product.quantity > 1
+          ? { ...product, quantity: product.quantity - 1 }
+          : product
+      )
+    );
+  };
 
   console.log(productId);
   useEffect(() => {
@@ -119,21 +118,46 @@ const Cart = () => {
                     </div>
                     <div className="arrow">
                       <span className="top">
-                        <IoIosArrowUp  onClick={() => increaseQuantity(item._id)}  />
+                        <IoIosArrowUp
+                          onClick={() => increaseQuantity(item._id)}
+                        />
                       </span>
                       <span className="down">
-                        <IoIosArrowUp onClick={() => decreaseQuantity(item._id)} />
+                        <IoIosArrowUp
+                          onClick={() => decreaseQuantity(item._id)}
+                        />
                       </span>
                     </div>
                   </div>
                 </div>
                 <p className="fullamount">${item.price * item.quantity}</p>
-             
               </div>
             ))}
         </div>
+
+        <div className="bottom-cont cont">
+          <div className="left"></div>
+          <div className="right">
+            <h5>Card total</h5>
+
+            <div className="subtotal">
+              <p>subtotal</p>
+              <p>$750</p>
+            </div>
+            <div className="subtotal">
+              <p>shipping</p>
+              <p>free</p>
+            </div>
+            <div className="subtotal">
+              <p>total</p>
+              <p>$750</p>
+            </div>
+            <div className="btn">
+              Procces To Checkout
+            </div>
+          </div>
+        </div>
       </div>
-      
     </>
   );
 };
