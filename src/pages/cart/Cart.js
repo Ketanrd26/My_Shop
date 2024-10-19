@@ -105,7 +105,7 @@ const Cart = () => {
               <div className="items menu" key={index}>
                 <div className="fristcol">
                   <img
-                    src={`${process.env.REACT_APP_PORT_BACKEND}/productImages/${item.img}`}
+                    src={`${item.img}`}
                     alt=""
                   />
                   <p>{item.title}</p>

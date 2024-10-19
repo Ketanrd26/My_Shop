@@ -175,10 +175,14 @@
 
           h3{
             color: var(--white);
+           
           }
         }
       }
-
+.title{
+  height: 10%;
+  font-size: var(--unit);
+}
       .desc {
         height: 10%;
         p {
