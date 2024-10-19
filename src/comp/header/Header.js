@@ -21,7 +21,7 @@ const Header = () => {
     },
     {
       path: "contact",
-      href: "/",
+      href: "/contact",
     },
     {
       path: "about",

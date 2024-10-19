@@ -1,0 +1,114 @@
+.contact-parent {
+  width: 100%;
+  height: 100vh;
+  padding-top: 80px;
+
+  .contact-cont {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: calc(var(--unit) * 2);
+    padding: 50px 10px;
+
+    .contact-details {
+      width: 30%;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: calc(var(--unit)*1.5);
+
+      .call-to-us,.write-to-us{
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: calc(var(--unit)/2);
+        border-bottom: 1px solid black;
+        padding: 10px 0px;
+
+        &.write-to-us{
+            border: none;
+        }
+
+
+        .call,.write{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--unit);
+            font-weight: 800;
+            color: var(--black);
+
+
+            span{
+                width: 30px;
+                aspect-ratio: 1;
+                background-color: var(--red);
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                svg{
+                    color: var(--white);
+                }
+            }
+        }
+
+        .adddetails{
+            font-size: var(--unit);
+            font-weight: 600;
+            color: var(--black);
+            line-height: 150%;
+        }
+      }
+    }
+
+    .contact-form {
+      width: 70%;
+      height: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+
+
+      form{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+        gap: var(--unit);
+
+        .names{
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--unit);
+
+            input{
+                padding: 10px;
+                background-color: #F5F5F5;
+                outline: none;
+                border: none;
+            }
+        }
+
+        textarea{
+            width: 100%;
+            height: 150px;
+            background-color: #F5F5F5;
+            outline: none;
+            border: none;
+            padding: 10px;
+        }
+      }
+    }
+  }
+}

@@ -9,6 +9,7 @@ import ContextProvider from "./context";
 import Admin from "./pages/admin/Admin";
 import Cart from "./pages/cart/Cart";
 import About from "./pages/about/About";
+import Contact from "./pages/contact/Contact";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/signup" element={<Sign />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<Admin />} />

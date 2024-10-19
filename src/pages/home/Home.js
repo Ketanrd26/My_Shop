@@ -8,11 +8,12 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { UserContext } from "../../context";
+import { useNavigate } from "react-router-dom";
 const Home = () => {
   const { userData } = useContext(UserContext);
   const targetDate = "30 oct 2024 12:00 AM";
   const pastDate = new Date(targetDate);
-
+const navigate = useNavigate()
   const [timeRemaining, setTimeRemaining] = useState({
     days: 0,
     hours: 0,
@@ -43,7 +44,6 @@ const Home = () => {
     return () => clearInterval(interval);
   }, [pastDate]);
 
-
   const [productmapping, setProductMapping] = useState([]);
   const addProductItems = async () => {
     try {
@@ -60,37 +60,37 @@ const Home = () => {
     addProductItems();
   }, []);
 
-
-
   const userId = userData && userData._id;
 
+  const token = localStorage.getItem("sessionobject");
 
-const token = localStorage.getItem("sessionobject");
-
-const addToCart = async (id) => {
-  try {
-    const response = await axios.post(
-      `${process.env.REACT_APP_PORT_BACKEND}/cart/addCart`,
-      {
-        userId: userId,
-        products: [
-          {
-            productId: id,
-          },
-        ],
-      },
-      {
-        headers: {
-          sessionobject: `${token}`, // Pass token as Authorization header
-        },
+  const addToCart = async (id) => {
+    try {
+      if (!userData) {
+        alert("please login first")
       }
-    );
+      const response = await axios.post(
+        `${process.env.REACT_APP_PORT_BACKEND}/cart/addCart`,
+        {
+          userId: userId,
+          products: [
+            {
+              productId: id,
+            },
+          ],
+        },
+        {
+          headers: {
+            sessionobject: `${token}`, // Pass token as Authorization header
+          },
+        }
+      );
 
-    console.log(response);
-  } catch (error) {
-    console.log(error);
-  }
-};
+    
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -158,7 +158,7 @@ const addToCart = async (id) => {
                   backgroundImage: `url(${process.env.REACT_APP_PORT_BACKEND}/productImages/${item.img})`,
                 }}
               >
-                <div className="addtocart" onClick={()=>addToCart(item._id)}>
+                <div className="addtocart" onClick={() => addToCart(item._id)}>
                   <h3>Add to Cart</h3>
                 </div>
               </div>
