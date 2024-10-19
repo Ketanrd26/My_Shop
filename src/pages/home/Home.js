@@ -150,7 +150,7 @@ const navigate = useNavigate()
           </div>
         </div>
         <div className="product-list">
-          {productmapping.map((item, index) => (
+          {productmapping.slice(0,6).map((item, index) => (
             <div className="card" key={index}>
               <div
                 className="image bg-img-cover"

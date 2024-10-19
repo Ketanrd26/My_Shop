@@ -139,7 +139,7 @@
     justify-content: center;
     align-items: center;
     gap: var(--unit);
-    padding: var(--unit) 0px;
+    padding: calc(var(--unit)*2) 0px;
 
     .card {
       width: 270px;
