@@ -155,7 +155,7 @@ const navigate = useNavigate()
               <div
                 className="image bg-img-cover"
                 style={{
-                  backgroundImage: `url(${process.env.REACT_APP_PORT_BACKEND}/productImages/${item.img})`,
+                  backgroundImage: `url(${item.img})`,
                 }}
               >
                 <div className="addtocart" onClick={() => addToCart(item._id)}>
@@ -164,7 +164,7 @@ const navigate = useNavigate()
               </div>
               <div className="title">{item.title}</div>
               <div className="desc">
-                <p>{item.desc}</p>
+                <p>{item.desc.slice(0,50)}</p>
               </div>
               <div className="amount">
                 <h4>$ {item.price}</h4>
