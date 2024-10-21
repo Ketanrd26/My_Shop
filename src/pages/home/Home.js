@@ -10,7 +10,7 @@ import "swiper/css/navigation";
 import { UserContext } from "../../context";
 import { useNavigate } from "react-router-dom";
 const Home = () => {
-  const { userData } = useContext(UserContext);
+  const { userData, cartLength } = useContext(UserContext);
   const targetDate = "30 oct 2024 12:00 AM";
   const pastDate = new Date(targetDate);
 const navigate = useNavigate()
@@ -64,33 +64,37 @@ const navigate = useNavigate()
 
   const token = localStorage.getItem("sessionobject");
 
+
   const addToCart = async (id) => {
     try {
       if (!userData) {
-        alert("please login first")
+        alert("please login first");
+        return;
       }
+
       const response = await axios.post(
         `${process.env.REACT_APP_PORT_BACKEND}/cart/addCart`,
         {
           userId: userId,
-          products: [
-            {
-              productId: id,
-            },
-          ],
+          products: [{ productId: id }],
         },
         {
           headers: {
-            sessionobject: `${token}`, // Pass token as Authorization header
+            sessionobject: `${token}`, // Use token from userData
           },
         }
       );
 
-    
+      if (response.status === 200) {
+        // After adding to cart, fetch the updated cart length
+        cartLength();
+      }
+
     } catch (error) {
       console.log(error);
     }
   };
+
 
   return (
     <>

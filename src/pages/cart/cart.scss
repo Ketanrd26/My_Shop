@@ -11,7 +11,7 @@
     flex-direction: column;
     align-items: center;
     padding: 30px 10px var(--unit) 10px;
-
+   overflow-x: hidden;
     height: 500px;
     overflow-y: scroll;
     background-color: white;
@@ -21,7 +21,7 @@
     .menu {
       width: 100%;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       place-items: center;
       background-color: var(--white);
       box-shadow: var(--shadow);
@@ -104,12 +104,24 @@
           }
         }
       }
+
+      .deleticon{
+        font-size: calc(var(--unit)*2);
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover{
+          color: var(--red);
+        }
+      }
     }
   }
 
   .bottom-cont {
     height: 100%;
-padding: 50px 0px;
+    padding: 50px 0px;
     display: flex;
     justify-content: space-between;
     align-self: start;
@@ -122,16 +134,16 @@ padding: 50px 0px;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-gap: calc(var(--unit)*2);
+      gap: calc(var(--unit) * 2);
       padding: var(--unit);
 
-      h5{
-        font-size: calc(var(--unit)*2);
+      h5 {
+        font-size: calc(var(--unit) * 2);
         width: 100%;
         text-align: left;
       }
 
-      .subtotal{
+      .subtotal {
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -139,12 +151,10 @@ gap: calc(var(--unit)*2);
         // padding: calc(var(--unit)/2);
         border-bottom: 1px solid var(--black);
 
-        &:nth-last-child(1){
-border: none !important;
+        &:nth-last-child(1) {
+          border: none !important;
         }
-
- 
+      }
     }
   }
-}
 }

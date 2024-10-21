@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./cart.scss";
 import { IoIosArrowUp } from "react-icons/io";
+import { MdDeleteOutline } from "react-icons/md";
 import axios from "axios";
 import { UserContext } from "../../context";
 const Cart = () => {
@@ -23,6 +24,8 @@ const Cart = () => {
         }
       );
 
+      console.log(response.data)
+
       // Create an object to track product quantities
       const productQuantities = {};
       response.data.cartItem.forEach((item) => {
@@ -40,24 +43,7 @@ const Cart = () => {
     }
   };
 
-  const cartproductFetch = async () => {
-    try {
-      const productResponse = await axios.get(
-        `${process.env.REACT_APP_PORT_BACKEND}/product/productList`
-      );
 
-      const filteredProducts = productResponse.data.products
-        .filter((item) => productId.hasOwnProperty(item._id))
-        .map((item) => ({
-          ...item,
-          quantity: productId[item._id],
-        }));
-
-      setFilterProduct(filteredProducts);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   // Handle increasing the quantity
   const increaseQuantity = (id) => {
@@ -86,9 +72,25 @@ const Cart = () => {
     userCartItem();
   }, [userData]);
 
-  useEffect(() => {
-    cartproductFetch();
-  }, [productId]);
+
+
+
+
+  const deleteCart = async (id)=>{
+  try {
+    const resposne = await axios.delete(`${process.env.REACT_APP_PORT_BACKEND}/cart/deleteCart/${id}`,{
+      
+      headers:{
+        sessionobject:`${token}`
+      }
+    },
+  );
+
+    console.log("sucess", resposne)
+  } catch (error) {
+    console.log(error)
+  }
+  }
 
   return (
     <>
@@ -99,6 +101,7 @@ const Cart = () => {
             <p>Price</p>
             <p>Qantity</p>
             <p>Subtotal</p>
+            <p>Delete Cart</p>
           </div>
           {filterProduct &&
             filterProduct.map((item, index) => (
@@ -130,7 +133,14 @@ const Cart = () => {
                     </div>
                   </div>
                 </div>
-                <p className="fullamount">${item.price * item.quantity}</p>
+                <p className="fullamount">${item.price * item.quantity}
+
+
+               
+                </p>
+                <span className="deleticon" onClick={()=>deleteCart(item._id)} >
+                  <MdDeleteOutline />
+                  </span>
               </div>
             ))}
         </div>

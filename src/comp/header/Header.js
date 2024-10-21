@@ -10,7 +10,7 @@ import { UserContext } from "../../context";
 import axios from "axios";
 
 const Header = () => {
-  const { userData } = useContext(UserContext);
+  const { userData,cartLengthCount,setCartLengthCount } = useContext(UserContext);
   const { setUserData } = useContext(UserContext);
 
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const Header = () => {
     localStorage.removeItem("sessionobject");
     setUserData("");
     navigate("/");
-    setCartLengthCount(null)
+    setCartLengthCount(null);
 
     // const logoutClass = document.getElementsByClassName("logout");
 
@@ -45,6 +45,12 @@ const Header = () => {
     //   logoutClass.style.display = "none";
     // }
   };
+
+useEffect(()=>(
+  setTimeout(() => {
+    logoutUser()
+  }, 60 * 60 * 1000)
+),[])
 
   const goToCart = () => {
     if (!userData) {
@@ -54,41 +60,9 @@ const Header = () => {
     }
   };
 
-  const userId = userData && userData._id;
-  const token = localStorage.getItem("sessionobject");
-  const [cartLengthCount, setCartLengthCount] = useState(null);
-  // cart length api
+;
 
-  const cartLength = async () => {
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_PORT_BACKEND}/cart/userCartLength`,
-        {
-          userId: userId,
-        },
-        {
-          headers: {
-            sessionobject: `${token}`,
-          },
-        }
-      );
-
-      if(response.data.cartItemLength > 0){
-        setCartLengthCount(response.data.cartItemLength);
-      }else{
-        setCartLengthCount(null)
-      }
-    
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    cartLength();
-  }, [userData]);
-
-  const [quantity,setQantity] = useState(null)
+  const [quantity, setQantity] = useState(null);
 
   return (
     <>

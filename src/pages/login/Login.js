@@ -17,6 +17,7 @@ const Login = () => {
     password: "",
   });
 
+const token = localStorage.getItem("sessionobject")
   const loginUser = async (e) => {
     e.preventDefault();
     console.log("click");
@@ -38,6 +39,10 @@ const Login = () => {
 
         navigate("/");
       }
+
+      setTimeout(() => {
+        localStorage.removeItem("sessionobject", `Bearer ${token}`);
+      }, 60 * 60 * 1000);
       console.log(response.data.messgae, "userLogin");
     } catch (error) {
       console.log(error, "error");
