@@ -13,7 +13,7 @@ const Home = () => {
   const { userData, cartLength } = useContext(UserContext);
   const targetDate = "30 oct 2024 12:00 AM";
   const pastDate = new Date(targetDate);
-const navigate = useNavigate()
+  const navigate = useNavigate();
   const [timeRemaining, setTimeRemaining] = useState({
     days: 0,
     hours: 0,
@@ -64,7 +64,6 @@ const navigate = useNavigate()
 
   const token = localStorage.getItem("sessionobject");
 
-
   const addToCart = async (id) => {
     try {
       if (!userData) {
@@ -76,7 +75,10 @@ const navigate = useNavigate()
         `${process.env.REACT_APP_PORT_BACKEND}/cart/addCart`,
         {
           userId: userId,
-          products: [{ productId: id }],
+          productId: productmapping[0]._id,
+          img: productmapping[0].img,
+          title: productmapping[0].title,
+          price: productmapping[0].price,
         },
         {
           headers: {
@@ -89,12 +91,10 @@ const navigate = useNavigate()
         // After adding to cart, fetch the updated cart length
         cartLength();
       }
-
     } catch (error) {
       console.log(error);
     }
   };
-
 
   return (
     <>
@@ -154,7 +154,7 @@ const navigate = useNavigate()
           </div>
         </div>
         <div className="product-list">
-          {productmapping.slice(0,6).map((item, index) => (
+          {productmapping.slice(0, 6).map((item, index) => (
             <div className="card" key={index}>
               <div
                 className="image bg-img-cover"
@@ -168,7 +168,7 @@ const navigate = useNavigate()
               </div>
               <div className="title">{item.title}</div>
               <div className="desc">
-                <p>{item.desc.slice(0,50)}</p>
+                <p>{item.desc.slice(0, 50)}</p>
               </div>
               <div className="amount">
                 <h4>$ {item.price}</h4>
