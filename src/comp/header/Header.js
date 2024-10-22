@@ -51,12 +51,16 @@ const Header = () => {
     navigate("/");
     setCartLengthCount(null);
     localStorage.removeItem("sessionobject");
-  
+
   };
 
 
 
-
+useEffect(()=>{
+  setTimeout(() => {
+    logoutUser()
+  },  60 * 60 * 1000);
+})
    
 
 
