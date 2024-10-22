@@ -13,39 +13,15 @@ const ContextProvider = ({ children }) => {
     }
   }, []);
 
-  const userId = userData && userData._id;
-  const token = localStorage.getItem("sessionobject");
   const [cartLengthCount, setCartLengthCount] = useState(null);
 
-  const cartLength = async () => {
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_PORT_BACKEND}/cart/userCartLength`,
-        {
-          userId: userId,
-        },
-        {
-          headers: {
-            sessionobject: `${token}`,
-          },
-        }
-      );
-
-      if (response.data.cartItemLength > 0) {
-        setCartLengthCount(response.data.cartItemLength);
-      } else {
-        setCartLengthCount(null);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    if (cartLength) {
-      localStorage.setItem("cartItem", JSON.stringify(cartLength));
+    if (cartLengthCount) {
+      localStorage.setItem("cartlength", JSON.stringify(cartLengthCount))
+    }else{
+      localStorage.removeItem("cartlength");
     }
-  }, [cartLength]);
+  },[cartLengthCount]);
 
   useEffect(() => {
     if (userData) {
@@ -62,7 +38,6 @@ const ContextProvider = ({ children }) => {
         setUserData,
         cartLengthCount,
         setCartLengthCount,
-        cartLength,
       }}
     >
       {children}

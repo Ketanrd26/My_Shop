@@ -10,7 +10,8 @@ import { UserContext } from "../../context";
 import axios from "axios";
 
 const Header = () => {
-  const { userData,cartLengthCount,setCartLengthCount } = useContext(UserContext);
+  const { userData, cartLengthCount, setCartLengthCount } =
+    useContext(UserContext);
   const { setUserData } = useContext(UserContext);
 
   const navigate = useNavigate();
@@ -33,24 +34,48 @@ const Header = () => {
     },
   ];
 
+  const userId = userData && userData._id;
+
+  const token = localStorage.getItem("sessionobject");
+
+  const cartLength = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_PORT_BACKEND}/cart/userCartLength`,
+        {
+          userId: userId,
+        },
+        {
+          headers: {
+            sessionobject: `${token}`, // Use token from userData
+          },
+        }
+      );
+
+      setCartLengthCount(response.data.cartItemLength);
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
+  console.log(userData, "uderdata...");
+  console.log(userId, "uderid...");
   const logoutUser = () => {
-    localStorage.removeItem("sessionobject");
     setUserData("");
     navigate("/");
     setCartLengthCount(null);
-
-    // const logoutClass = document.getElementsByClassName("logout");
-
-    // if (logoutClass) {
-    //   logoutClass.style.display = "none";
-    // }
+    localStorage.removeItem("sessionobject");
   };
 
-useEffect(()=>(
-  setTimeout(() => {
-    logoutUser()
-  }, 60 * 60 * 1000)
-),[])
+  useEffect(()=>{
+    cartLength()
+  },[])
+
+
+
+   
+
 
   const goToCart = () => {
     if (!userData) {
@@ -59,10 +84,6 @@ useEffect(()=>(
       navigate("/cart");
     }
   };
-
-;
-
-  const [quantity, setQantity] = useState(null);
 
   return (
     <>
