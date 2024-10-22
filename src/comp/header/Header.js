@@ -38,26 +38,7 @@ const Header = () => {
 
   const token = localStorage.getItem("sessionobject");
 
-  const cartLength = async () => {
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_PORT_BACKEND}/cart/userCartLength`,
-        {
-          userId: userId,
-        },
-        {
-          headers: {
-            sessionobject: `${token}`, // Use token from userData
-          },
-        }
-      );
 
-      setCartLengthCount(response.data.cartItemLength);
-      console.log(response)
-    } catch (error) {
-      console.log(error)
-    }
-  };
 
   console.log(userData, "uderdata...");
   console.log(userId, "uderid...");
@@ -73,12 +54,6 @@ const Header = () => {
   
   };
 
-  useEffect(()=>{
-    if(userId)
-    {
-      cartLength()
-    }
-  },[userId])
 
 
 

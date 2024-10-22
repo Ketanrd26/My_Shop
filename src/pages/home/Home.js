@@ -70,15 +70,23 @@ const Home = () => {
         alert("please login first");
         return;
       }
-
+  
+      // Find the product by the provided id
+      const product = productmapping.find((item) => item._id === id);
+  
+      if (!product) {
+        console.error("Product not found!");
+        return;
+      }
+  
       const response = await axios.post(
         `${process.env.REACT_APP_PORT_BACKEND}/cart/addCart`,
         {
           userId: userId,
-          productId: productmapping[0]._id,
-          img: productmapping[0].img,
-          title: productmapping[0].title,
-          price: productmapping[0].price,
+          productId: product._id,
+          img: product.img,
+          title: product.title,
+          price: product.price,
         },
         {
           headers: {
@@ -86,7 +94,7 @@ const Home = () => {
           },
         }
       );
-
+  
       if (response.status === 200) {
         // After adding to cart, fetch the updated cart length
         cartLength();
@@ -95,6 +103,7 @@ const Home = () => {
       console.log(error);
     }
   };
+  
 
   return (
     <>

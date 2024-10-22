@@ -4,63 +4,61 @@ import { IoIosArrowUp } from "react-icons/io";
 import { MdDeleteOutline } from "react-icons/md";
 import axios from "axios";
 import { UserContext } from "../../context";
+
 const Cart = () => {
   const { userData } = useContext(UserContext);
 
   const userId = userData && userData._id;
   const token = localStorage.getItem("sessionobject");
 
-  const [productId, setProductId] = useState([]);
-  const [filterProduct, setFilterProduct] = useState(null);
+  const [cartItem, setCartItem] = useState([]);
 
+  // Fetch cart items from the backend
+  const cartItemList = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_PORT_BACKEND}/cart/userCart/${userId}`,
+        {
+          headers: {
+            sessionobject: `${token}`,
+          },
+        }
+      );
 
+      // Add quantity to each cart item (default to 1)
+      const updatedCartItems = response.data.cartItem[0].products.map((item) => ({
+        ...item,
+        quantity: 1,
+      }));
 
-
-
-  // Handle increasing the quantity
-  const increaseQuantity = (id) => {
-    setFilterProduct((prevState) =>
-      prevState.map((product) =>
-        product._id === id
-          ? { ...product, quantity: product.quantity + 1 }
-          : product
-      )
-    );
+      setCartItem(updatedCartItems);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  // Handle decreasing the quantity, ensuring it doesn't go below 1
-  const decreaseQuantity = (id) => {
-    setFilterProduct((prevState) =>
-      prevState.map((product) =>
-        product._id === id && product.quantity > 1
-          ? { ...product, quantity: product.quantity - 1 }
-          : product
-      )
+  // Handle increasing the quantity for a specific item
+  const incrementQuantity = (index) => {
+    const updatedItems = cartItem.map((item, i) =>
+      i === index ? { ...item, quantity: item.quantity + 1 } : item
     );
+    setCartItem(updatedItems);
   };
 
-  console.log(productId);
+  // Handle decreasing the quantity for a specific item (ensure it doesn't go below 1)
+  const decrementQuantity = (index) => {
+    const updatedItems = cartItem.map((item, i) =>
+      i === index && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+    );
+    setCartItem(updatedItems);
+  };
 
+  useEffect(() => {
+    cartItemList();
+  }, [userId]);
 
-
-
-
-
-  const deleteCart = async (id)=>{
-  try {
-    const resposne = await axios.delete(`${process.env.REACT_APP_PORT_BACKEND}/cart/deleteCart/${id}`,{
-      
-      headers:{
-        sessionobject:`${token}`
-      }
-    },
-  );
-
-    console.log("sucess", resposne)
-  } catch (error) {
-    console.log(error)
-  }
-  }
+  // Delete a cart item
+  
 
   return (
     <>
@@ -69,48 +67,37 @@ const Cart = () => {
           <div className="menu">
             <p>Product</p>
             <p>Price</p>
-            <p>Qantity</p>
+            <p>Quantity</p>
             <p>Subtotal</p>
             <p>Delete Cart</p>
           </div>
-          {filterProduct &&
-            filterProduct.map((item, index) => (
+          {cartItem &&
+            cartItem.map((item, index) => (
               <div className="items menu" key={index}>
                 <div className="fristcol">
-                  <img
-                    src={`${item.img}`}
-                    alt=""
-                  />
+                  <img src={`${item.img}`} alt="" />
                   <p>{item.title}</p>
                 </div>
                 <p className="price">$ {item.price}</p>
                 <div className="qantity">
                   <div className="input">
                     <div className="text">
-                      <p>{item.quantity}</p> {/* Use the quantity here */}
+                      <p>{item.quantity}</p>
                     </div>
                     <div className="arrow">
                       <span className="top">
-                        <IoIosArrowUp
-                          onClick={() => increaseQuantity(item._id)}
-                        />
+                        <IoIosArrowUp onClick={() => incrementQuantity(index)} />
                       </span>
                       <span className="down">
-                        <IoIosArrowUp
-                          onClick={() => decreaseQuantity(item._id)}
-                        />
+                        <IoIosArrowUp onClick={() => decrementQuantity(index)} />
                       </span>
                     </div>
                   </div>
                 </div>
-                <p className="fullamount">${item.price * item.quantity}
-
-
-               
-                </p>
-                <span className="deleticon" onClick={()=>deleteCart(item._id)} >
+                <p className="fullamount">${item.price * item.quantity}</p>
+                <span className="deleticon" >
                   <MdDeleteOutline />
-                  </span>
+                </span>
               </div>
             ))}
         </div>
@@ -118,23 +105,20 @@ const Cart = () => {
         <div className="bottom-cont cont">
           <div className="left"></div>
           <div className="right">
-            <h5>Card total</h5>
-
+            <h5>Cart total</h5>
             <div className="subtotal">
-              <p>subtotal</p>
-              <p>$750</p>
-            </div>
-            <div className="subtotal">
-              <p>shipping</p>
-              <p>free</p>
+              <p>Subtotal</p>
+              <p>${cartItem.reduce((acc, item) => acc + item.price * item.quantity, 0)}</p>
             </div>
             <div className="subtotal">
-              <p>total</p>
-              <p>$750</p>
+              <p>Shipping</p>
+              <p>Free</p>
             </div>
-            <div className="btn">
-              Procces To Checkout
+            <div className="subtotal">
+              <p>Total</p>
+              <p>${cartItem.reduce((acc, item) => acc + item.price * item.quantity, 0)}</p>
             </div>
+            <div className="btn">Proceed To Checkout</div>
           </div>
         </div>
       </div>
