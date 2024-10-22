@@ -61,16 +61,24 @@ const Header = () => {
 
   console.log(userData, "uderdata...");
   console.log(userId, "uderid...");
+
+
+  
   const logoutUser = () => {
+    console.log("logout trigger")
     setUserData("");
     navigate("/");
     setCartLengthCount(null);
     localStorage.removeItem("sessionobject");
+  
   };
 
   useEffect(()=>{
-    cartLength()
-  },[])
+    if(userId)
+    {
+      cartLength()
+    }
+  },[userId])
 
 
 

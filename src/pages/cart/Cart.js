@@ -13,35 +13,7 @@ const Cart = () => {
   const [productId, setProductId] = useState([]);
   const [filterProduct, setFilterProduct] = useState(null);
 
-  const userCartItem = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_PORT_BACKEND}/cart/userCart/${userId}`,
-        {
-          headers: {
-            sessionobject: `${token}`,
-          },
-        }
-      );
 
-      console.log(response.data)
-
-      // Create an object to track product quantities
-      const productQuantities = {};
-      response.data.cartItem.forEach((item) => {
-        const productId = item.products[0].productId;
-        if (productQuantities[productId]) {
-          productQuantities[productId] += 1;
-        } else {
-          productQuantities[productId] = 1;
-        }
-      });
-
-      setProductId(productQuantities);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
 
 
@@ -68,9 +40,7 @@ const Cart = () => {
   };
 
   console.log(productId);
-  useEffect(() => {
-    userCartItem();
-  }, [userData]);
+
 
 
 

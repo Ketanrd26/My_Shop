@@ -18,6 +18,9 @@ const Login = () => {
   });
 
 const token = localStorage.getItem("sessionobject")
+
+
+
   const loginUser = async (e) => {
     e.preventDefault();
     console.log("click");
@@ -36,13 +39,10 @@ const token = localStorage.getItem("sessionobject")
         setUserData(response.data.user);
         const accessToken = response.data.accessToken;
         localStorage.setItem("sessionobject", `Bearer ${accessToken}`);
-
+        localStorage.setItem("user", JSON.stringify(response.data.user));
         navigate("/");
       }
 
-      setTimeout(() => {
-        localStorage.removeItem("sessionobject", `Bearer ${token}`);
-      }, 60 * 60 * 1000);
       console.log(response.data.messgae, "userLogin");
     } catch (error) {
       console.log(error, "error");
